@@ -1,0 +1,89 @@
+@import "../../../admin.crud.form.scss";
+
+::ng-deep .theme-default .mat-step-header .mat-step-icon-state-done {
+    background-color: green !important;
+    color: white !important;
+}
+
+mat-divider {
+    margin: 0px 0px 16px 0px;
+}
+
+mat-list-item {
+    color: grey !important;
+    font-size: 22px !important;
+}
+
+mat-list-item {
+    color: grey !important;
+    font-size: 22px !important;
+}
+
+::ng-deep body.theme-default .mat-input-element {
+    color: grey;
+}
+
+::ng-deep h3 {
+    color: gray;
+}
+
+::ng-deep .mat-checkbox-layout {
+    margin: 0 12px 14px 15px;
+}
+
+.wrap {
+    flex-wrap: wrap;
+}
+
+.container {
+    margin: 0 auto;
+    display: flex;
+}
+
+.item {
+    flex: 1;
+}
+
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: #7e7e7e !important;
+    opacity: 1; /* Firefox */
+  }
+
+.not-empty-select.mat-selected {
+    color: #7e7e7e !important;
+}
+
+::ng-deep .mat-select-value-text {
+    color: #7e7e7e !important;
+}
+
+.expand{
+    border-color: #673ab7  !important;
+    margin-bottom: 15px !important;
+}
+
+.titulo-panel {
+    font-weight: bolder !important;
+    color: #4F4F4F !important;
+}
+
+.check-box{
+    margin: -1%;
+    color: #7e7e7e;
+}
+
+ .header {
+    background: #123261;
+}
+
+.text-white {
+    color: white;
+}
+
+.text-deafult-color {
+  color: #123261;  
+}
+
+.add-btn {
+    margin-top: 30px !important;
+}

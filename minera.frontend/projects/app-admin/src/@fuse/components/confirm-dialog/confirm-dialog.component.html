@@ -1,0 +1,27 @@
+<h1 matDialogTitle>Confirmação de Exclusão</h1>
+<div mat-dialog-content>{{confirmMessage}}</div>
+<div mat-dialog-actions
+    class="pt-24">
+    <!-- <button mat-button-wrapper
+        class="mat-accent mr-16"
+        (click)="dialogRef.close(true)">Confirmar</button>
+    <button mat-button-wrapper
+        (click)="dialogRef.close(false)">Cancelar</button> -->
+
+    <button _ngcontent-cxf-c45="" 
+        class="mat-accent mr-16 mat-raised-button" 
+        mat-raised-button=""
+        (click)="dialogRef.close(true)">
+        <span class="mat-button-wrapper">Confirmar</span>
+        <div class="mat-button-ripple mat-ripple" matripple=""></div>
+        <div class="mat-button-focus-overlay"></div>
+    </button>
+    <button _ngcontent-cxf-c45="" 
+        mat-button="" 
+        class="mat-button"
+        (click)="dialogRef.close(false)">
+        <span class="mat-button-wrapper">Cancelar</span>
+        <div class="mat-button-ripple mat-ripple" matripple=""></div>
+        <div class="mat-button-focus-overlay"></div>
+    </button>
+</div>

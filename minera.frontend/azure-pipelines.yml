@@ -1,0 +1,38 @@
+# Node.js with Angular
+# Build a Node.js project that uses Angular.
+# Add steps that analyze code, save build artifacts, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
+
+trigger:
+- master
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+- task: NodeTool@0
+  inputs:
+    versionSpec: '10.x'
+  displayName: 'Install Node.js'
+
+- script: |
+    npm install -g @angular/cli
+    npm install
+    node --max_old_space_size=6144 ./node_modules/@angular/cli/bin/ng build --prod
+  displayName: 'npm install and build'
+
+- script: |
+    docker build -t front:$(Build.BuildNumber) .
+  displayName: 'build docker image'
+
+# - script: |
+#     docker login -p wNK3hhn7E5qBWenz/EvrWlU4UpXwhEpd -u adamimages adamimages.azurecr.io
+#   displayName: 'access azure container registry'
+
+# - script: |
+#     docker tag front:$(Build.BuildNumber) adamimages.azurecr.io/adam-front:$(Build.BuildNumber)
+#   displayName: 'tag image'
+
+# - script: |
+#     docker push adamimages.azurecr.io/adam-front:$(Build.BuildNumber)
+#   displayName: 'push image'

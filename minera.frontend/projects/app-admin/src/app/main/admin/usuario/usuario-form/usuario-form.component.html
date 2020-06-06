@@ -1,0 +1,65 @@
+<div id="forms" class="page-layout simple fullwidth" fxLayout="column">
+    <!-- HEADER -->
+    <div class="header p-24" fxLayout="column" fxLayoutAlign="center center" fxLayout.gt-xs="row"
+        fxLayoutAlign.gt-xs="space-between center">
+        <div fxLayout="column" fxLayoutAlign="center center" fxLayout.gt-xs="column" fxLayoutAlign.gt-xs="center start">
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <mat-icon class="s-16 text-white">home</mat-icon>
+                <mat-icon class="s-16 text-white">chevron_right</mat-icon>
+                <span class="text-white">Usuário</span>
+            </div>
+            <div class="h1 mt-16">
+                <span *ngIf="!usuarioDetail" class="text-white">Novo Usuário</span>
+                <span *ngIf="usuarioDetail" class="text-white">Editar Usuário:
+                    {{ usuarioDetail.nome }}</span>
+            </div>
+        </div>
+    </div>
+    <!-- / HEADER -->
+
+    <!-- CONTENT -->
+    <div class="content p-24" fxLayout="column">
+        <div class="mat-card mat-elevation-z1 p-24 mr-24" fxLayout="column" fxLayoutAlign="start">
+            <h3>Preencha os campos abaixo para criar um novo Usuário</h3>
+            <form class="" name="form" [formGroup]="form">
+                <div class="tab-content" fusePerfectScrollbar>
+                    <div style="float: left; width: 100%;">
+
+                        <mat-form-field appearance="outline" class="w-60-p">
+                            <mat-label>Nome Usuário</mat-label>
+                            <input matInput placeholder="Nome Usuário" name="nome" formControlName="nome" type="text">
+                        </mat-form-field>
+
+                        <mat-form-field appearance="outline" class="w-60-p">
+                            <mat-label>Papel do Usuário</mat-label>
+                            <input matInput placeholder="Papel do Usuário" name="papel" formControlName="papel"
+                                type="text">
+                        </mat-form-field>
+
+                        <mat-form-field appearance="outline" class="w-60-p">
+                            <mat-label>Nickname</mat-label>
+                            <input matInput placeholder="Nickname" name="userName" formControlName="userName"
+                                type="text">
+                        </mat-form-field>
+
+                        <mat-form-field appearance="outline" class="w-60-p">
+                            <mat-label>Senha</mat-label>
+                            <input matInput placeholder="PassWord" name="passWord" formControlName="passWord"
+                                type="password">
+                        </mat-form-field>
+
+                    </div>
+                </div>
+            </form>
+
+            <div class="example-button-row">
+                <a mat-flat-button color="accent" type="button" (click)="saveUsuario()" [disabled]="form.invalid">
+                    <span> Salvar </span>
+                </a>
+                <a mat-stroked-button  type="button" [routerLink]="['/usuario']">
+                    <span> Voltar </span>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,28 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <span class="title dialog-title">Excluir Manutenção</span>
+            <button mat-icon-button (click)="matDialogRef.close()" aria-label="Fechar">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+
+    <div mat-dialog-content class="pb-0 m-0" fusePerfectScrollbar *ngIf="!loading">
+        <div class="confirm-box">
+            <span class="confirm-text" style="color: black;">
+                {{ mensagem }}
+            </span>
+        </div>
+        <div class="buttons">
+            <button mat-flat-button class="cancel" (click)="matDialogRef.close()">Cancelar</button>
+            <button mat-flat-button color="warn" (click)="remove()">
+                Sim, quero excluir
+            </button>
+        </div>
+    </div>
+
+    <div class="loading" *ngIf="loading">
+        <mat-spinner></mat-spinner>
+    </div>
+</div>

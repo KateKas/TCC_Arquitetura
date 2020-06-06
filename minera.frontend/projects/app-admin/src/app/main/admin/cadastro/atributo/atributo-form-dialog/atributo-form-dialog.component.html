@@ -1,0 +1,119 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <span class="title dialog-title">{{ dialogTitle }}</span>
+            <button mat-icon-button (click)="matDialogRef.close()" aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+
+
+    </mat-toolbar>
+
+    <div mat-dialog-content class="p-24 pb-0 m-0" fusePerfectScrollbar *ngIf="!loading">
+
+        <form [formGroup]="formGroup">
+
+            <div fxLayout="row" fxLayoutAlign="start start">
+                <mat-form-field fxFlex>
+                    <mat-label>Atributo</mat-label>
+                    <input matInput placeholder="Atributo" aria-label="Atributo" [matAutocomplete]="auto"
+                        formControlName="nome">
+                    <mat-autocomplete #auto="matAutocomplete" class="autocomplete">
+                        <mat-option *ngFor="let atributo of atributosFiltrados | async" [value]="atributo.nome"
+                            (click)="insereAtributo(atributo)">
+                            <span>{{ atributo.nome }}</span>
+                        </mat-option>
+                    </mat-autocomplete>
+                </mat-form-field>
+            </div>
+
+            <div fxLayout="row" fxLayoutAlign="start start">
+                <mat-form-field fxFlex>
+                    <mat-label>Conceito</mat-label>
+                    <input name="descricao" formControlName="conceito" matInput required>
+                </mat-form-field>
+            </div>
+
+            <div fxLayout="row" fxLayoutAlign="start start">
+                <mat-form-field fxFlex>
+                    <mat-label>Pergunta</mat-label>
+                    <input name="pergunta" formControlName="pergunta" matInput>
+                </mat-form-field>
+            </div>
+            <mat-label class="title-box-respostas">Respostas</mat-label>
+            <div fxLayout="row" fxLayoutAlign="start start">
+                <div class="insereResposta">
+                    <mat-form-field style="width: 515px; margin-right: 15px;">
+                        <mat-label>*Caso deseje insira uma nova resposta</mat-label>
+                        <input matInput formControlName="novaResposta" (keydown.enter)="insereResposta()">
+                    </mat-form-field>
+                    <mat-icon style="margin-right: 15px;"
+                        matTooltip="Para inserir a resposta aperte ENTER ou clique no botão ao lado">info
+                    </mat-icon>
+                    <a mat-raised-button color="accent" (click)="insereResposta()" aria-label="Inserir Resposta"
+                        matTooltip="Inserir Resposta">
+                        Inserir resposta
+                    </a>
+                </div>
+            </div>
+            <div class="mat-elevation-z8" class="tabela-respostas" *ngIf="listRespostas.length > 0">
+                <mat-table [dataSource]="dataSource" class="mat-elevation-z2">
+                    <ng-container matColumnDef="nome">
+                        <mat-header-cell *matHeaderCellDef fxHide fxShow.gt-md>
+                            Nome da resposta
+                        </mat-header-cell>
+                        <mat-cell *matCellDef="let resposta">
+                            <mat-form-field>
+                                <input matInput value="{{ resposta.nome }}" formControlName="resposta"
+                                    (keyup)="editarRespostaNome(resposta)">
+                            </mat-form-field>
+                        </mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="buttons">
+                        <mat-header-cell *matHeaderCellDef fxHide fxShow.gt-sm>
+                            Ações
+                        </mat-header-cell>
+                        <mat-cell *matCellDef="let resposta" fxHide fxShow.gt-sm>
+                            <a mat-icon-button color="warn">
+                                <mat-icon matTooltip="Remover resposta" (click)="removeResposta(resposta);">
+                                    delete_outline
+                                </mat-icon>
+                            </a>
+                        </mat-cell>
+                    </ng-container>
+
+                    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                    <mat-row *matRowDef="let row; columns: displayedColumns;">
+                    </mat-row>
+                </mat-table>
+
+            </div>
+
+        </form>
+    </div>
+
+    <div mat-dialog-actions class="m-0 p-16" fxLayout="row" fxLayoutAlign="end center" *ngIf="!loading">
+
+        <a mat-button class="mr-8" (click)="matDialogRef.close(['delete',formGroup])" aria-label="Cancelar"
+            matTooltip="Cancelar">
+            Cancelar
+        </a>
+
+        <a *ngIf="action === 'edit'" mat-raised-button color="accent"
+            (click)="matDialogRef.close(formGroup); saveAtributo(formGroup)" [disabled]="formGroup.invalid"
+            aria-label="Salvar">
+            Salvar
+        </a>
+
+        <a *ngIf="action === 'new'" mat-button class="accent" (click)="saveAtributo(formGroup)"
+            [disabled]="formGroup.invalid" aria-label="Salvar">
+            Salvar
+        </a>
+
+    </div>
+    <div class="loading" *ngIf="loading">
+        <mat-spinner></mat-spinner>
+    </div>
+</div>

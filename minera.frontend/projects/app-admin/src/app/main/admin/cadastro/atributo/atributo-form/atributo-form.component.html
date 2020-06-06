@@ -1,0 +1,48 @@
+<div id="forms" class="page-layout simple fullwidth" fxLayout="column">
+
+    <!-- HEADER -->
+    <div class="header p-24" fxLayout="column" fxLayoutAlign="center center" fxLayout.gt-xs="row"
+        fxLayoutAlign.gt-xs="space-between center">
+        <div fxLayout="column" fxLayoutAlign="center center" fxLayout.gt-xs="column" fxLayoutAlign.gt-xs="center start">
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <mat-icon class="text-white s-18">home</mat-icon>
+                <mat-icon class="text-white s-18">chevron_right</mat-icon>
+                <span class="text-white">Criar Atributo</span>
+            </div>
+            <div class="h1 mt-16 text-white">
+                Novo Atributo
+            </div>
+        </div>
+    </div>
+    <!-- / HEADER -->
+
+    <!-- CONTENT -->
+    <div class="content p-24">
+        <div class="mb-24" fxLayout="column" fxLayoutAlign="start" fxLayout.gt-md="row">
+            <!-- REACTIVE FORM EXAMPLE -->
+
+            <form class="mat-card mat-elevation-z1 p-24 mr-24" fxLayout="column" name="form" [formGroup]="form">
+                <div class="tab-content p-24" fusePerfectScrollbar>
+
+                    <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                        <mat-label>Nome Atributo</mat-label>
+                        <input matInput placeholder="Nome Atributo" name="nomeAtributo" formControlName="nomeAtributo"
+                            required>
+                    </mat-form-field>
+
+                    <div class="example-button-row">
+                        <button mat-flat-button color="accent" type="button" (click)="saveAtributo()">
+                            Salvar
+                        </button>
+
+                        <a mat-flat-button [routerLink]="['/atributo']">Voltar</a>
+                    </div>
+
+                </div>
+            </form>
+
+            <!-- / REACTIVE FORM EXAMPLE -->
+        </div>
+    </div>
+    <!-- / CONTENT -->
+</div>

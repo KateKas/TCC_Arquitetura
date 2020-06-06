@@ -1,0 +1,164 @@
+{
+  "skus": [
+    {
+      "codigo": "01.00.00.00",
+      "descricao": "MEDICAMENTOS",
+      "tipo": "S"
+    },
+    {
+      "codigo": "01.10.00.00",
+      "descricao": "REFERENCIA/SIMILARES/GENERICOS",
+      "tipo": "S"
+    },
+    {
+      "codigo": "01.10.01.00",
+      "descricao": "RECEITUARIO",
+      "tipo": "S"
+    },
+    {
+      "codigo": "01.10.01.02",
+      "descricao": "ANALGESICOS",
+      "tipo": "A"
+    },
+    {
+      "codigo": "01.10.01.04",
+      "descricao": "ANESTESICOS",
+      "tipo": "A"
+    },
+    {
+      "codigo": "01.10.01.06",
+      "descricao": "ANTI-DIABETES",
+      "tipo": "A"
+    },
+    {
+      "codigo": "01.10.01.07",
+      "descricao": "ANTI-HEMORRAGICOS",
+      "tipo": "A"
+    },
+    {
+      "codigo": "01.10.01.08",
+      "descricao": "ANTI-INFLAMATORIO",
+      "tipo": "A"
+    },
+    {
+      "codigo": "01.10.01.10",
+      "descricao": "ANTIACIDOS",
+      "tipo": "A"
+    },
+    {
+      "codigo": "01.10.01.12",
+      "descricao": "ANTIALERGICOS",
+      "tipo": "A"
+    },
+    {
+      "codigo": "01.10.01.13",
+      "descricao": "ANTIALOPECIA",
+      "tipo": "A"
+    },
+    {
+      "codigo": "01.10.01.14",
+      "descricao": "ANTIBIOTICOS",
+      "tipo": "A"
+    },
+    {
+      "codigo": "01.10.01.15",
+      "descricao": "ANTICOAGULANTES",
+      "tipo": "A"
+    },
+    {
+      "codigo": "01.10.01.16",
+      "descricao": "ANTICONCEPCIONAIS",
+      "tipo": "A"
+    },
+    {
+      "codigo": "01.10.01.18",
+      "descricao": "ANTIDIARREICOS",
+      "tipo": "A"
+    },
+    {
+      "codigo": "01.10.01.19",
+      "descricao": "ANTIFUNGICOS",
+      "tipo": "A"
+    },
+    {
+      "codigo": "01.10.01.20",
+      "descricao": "ANTIEMETICO",
+      "tipo": "A"
+    },
+    {
+      "codigo": "01.10.01.21",
+      "descricao": "ANTIGOTOSOS",
+      "tipo": "A"
+    },
+    {
+      "codigo": "01.10.01.22",
+      "descricao": "ANTIGRIPAIS",
+      "tipo": "A"
+    },
+    {
+      "codigo": "01.10.01.23",
+      "descricao": "ANTI-OSTEOSPOROTICOS",
+      "tipo": "A"
+    },
+    {
+      "codigo": "01.10.01.24",
+      "descricao": "ANTISSEPTICOS",
+      "tipo": "A"
+    },
+    {
+      "codigo": "01.10.01.25",
+      "descricao": "ANTITUSSIGENOS",
+      "tipo": "A"
+    },
+    {
+      "codigo": "01.10.01.26",
+      "descricao": "BRONCODILATADORES",
+      "tipo": "A"
+    },
+    {
+      "codigo": "01.10.01.27",
+      "descricao": "ANTIVIRAIS",
+      "tipo": "A"
+    },
+    {
+      "codigo": "01.10.01.28",
+      "descricao": "CARDIOLOGICOS",
+      "tipo": "A"
+    },
+    {
+      "codigo": "01.10.01.30",
+      "descricao": "CONTRASTE",
+      "tipo": "A"
+    },
+    {
+      "codigo": "01.10.01.31",
+      "descricao": "DERMATOLOGICO MEDICAMENTOSO",
+      "tipo": "A"
+    },
+    {
+      "codigo": "01.10.01.33",
+      "descricao": "DISTURBIOS URINARIOS",
+      "tipo": "A"
+    },
+    {
+      "codigo": "01.10.01.34",
+      "descricao": "DIGESTIVOS",
+      "tipo": "A"
+    },
+    {
+      "codigo": "01.10.01.35",
+      "descricao": "DISFUNCAO ERETIL",
+      "tipo": "A"
+    },
+    {
+      "codigo": "01.10.01.36",
+      "descricao": "GASTROPROTETOR",
+      "tipo": "A"
+    },
+    {
+      "codigo": "01.10.01.37",
+      "descricao": "EXPECTORANTES",
+      "tipo": "A"
+    }
+  ]
+}

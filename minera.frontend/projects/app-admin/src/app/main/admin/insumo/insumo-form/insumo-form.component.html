@@ -1,0 +1,86 @@
+<div id="forms" class="page-layout simple fullwidth" fxLayout="column">
+    <!-- HEADER -->
+    <div class="header p-24" fxLayout="column" fxLayoutAlign="center center" fxLayout.gt-xs="row"
+        fxLayoutAlign.gt-xs="space-between center">
+        <div fxLayout="column" fxLayoutAlign="center center" fxLayout.gt-xs="column" fxLayoutAlign.gt-xs="center start">
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <mat-icon class="s-16 text-white">home</mat-icon>
+                <mat-icon class="s-16 text-white">chevron_right</mat-icon>
+                <span class="text-white">Insumo</span>
+            </div>
+            <div class="h1 mt-16">
+                <span *ngIf="!insumoDetail" class="text-white">Novo Insumo</span>
+                <span *ngIf="insumoDetail" class="text-white">Editar Insumo:
+                    {{ insumoDetail.nome }}</span>
+            </div>
+        </div>
+    </div>
+    <!-- / HEADER -->
+
+    <!-- CONTENT -->
+    <div class="content p-24" fxLayout="column">
+        <div class="mat-card mat-elevation-z1 p-24 mr-24" fxLayout="column" fxLayoutAlign="start">
+            <h3>Preencha os campos abaixo para criar um novo Insumo</h3>
+            <form class="" name="form" [formGroup]="form">
+                <div class="tab-content" fusePerfectScrollbar>
+                    <div style="float: left; width: 100%;">
+
+                        <mat-checkbox class="check-box" formControlName="status">
+                            Status</mat-checkbox>
+                        <p>
+
+                        </p>
+
+                        <mat-form-field appearance="outline" class="w-60-p">
+                            <mat-label>Nome Insumo</mat-label>
+                            <input matInput placeholder="Nome Usuário" name="nome" formControlName="nome" type="text">
+                        </mat-form-field>
+
+                        <mat-form-field appearance="outline" class="w-60-p">
+                            <mat-label>Descrição do Insumo</mat-label>
+                            <input matInput placeholder="Descrição do Insumo" name="descricao"
+                                formControlName="descricao" type="text">
+                        </mat-form-field>
+
+                        <div style="width: 500px;">
+                            <mat-form-field ppearance="outline" class="w-60-p">
+                                <mat-label>Data da Aquisição</mat-label>
+                                <input matInput [matDatepicker]="dataAquisicao" formControlName="dataAquisicao">
+                                <mat-datepicker-toggle matSuffix [for]="dataAquisicao"></mat-datepicker-toggle>
+                                <mat-datepicker #dataAquisicao></mat-datepicker>
+                            </mat-form-field>
+                        </div>
+              
+                        <div style="width: 500px;">
+                            <mat-form-field ppearance="outline" class="w-60-p">
+                                <mat-label>Data da Próxima Manutenção</mat-label>
+                                <input matInput [matDatepicker]="dataProximaManutencao" formControlName="dataProximaManutencao">
+                                <mat-datepicker-toggle matSuffix [for]="dataProximaManutencao"></mat-datepicker-toggle>
+                                <mat-datepicker #dataProximaManutencao></mat-datepicker>
+                            </mat-form-field>
+                        </div>
+
+                        <div style="width: 500px;">
+                            <mat-form-field ppearance="outline" class="w-60-p">
+                                <mat-label>Data da Última Manutenção</mat-label>
+                                <input matInput [matDatepicker]="dataUltimaManutencao" formControlName="dataUltimaManutencao">
+                                <mat-datepicker-toggle matSuffix [for]="dataUltimaManutencao"></mat-datepicker-toggle>
+                                <mat-datepicker #dataUltimaManutencao></mat-datepicker>
+                            </mat-form-field>
+                        </div>
+
+                    </div>
+                </div>
+            </form>
+
+            <div class="example-button-row">
+                <a mat-flat-button color="accent" type="button" (click)="saveInsumo()" [disabled]="form.invalid">
+                    <span> Salvar </span>
+                </a>
+                <a mat-stroked-button type="button" [routerLink]="['/insumo']">
+                    <span> Voltar </span>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

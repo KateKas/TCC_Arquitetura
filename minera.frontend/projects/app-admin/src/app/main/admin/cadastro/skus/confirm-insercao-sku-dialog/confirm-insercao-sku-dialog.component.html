@@ -1,0 +1,32 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <span class="title dialog-title">Confirmar inserção de SKUS</span>
+            <button mat-icon-button (click)="matDialogRef.close(['delete'])" aria-label="Fechar">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+
+    <div mat-dialog-content class="pb-0 m-0" fusePerfectScrollbar *ngIf="!loading">
+        <div class="confirm-box">
+            <span class="confirm-text" style="color: black;">
+                Deseja realmente vincular ao agrupamento todos os SKUS retornados pela busca?
+            </span>
+        </div>
+        <div class="buttons">
+            <button mat-flat-button class="cancel" (click)="matDialogRef.close()">Cancelar</button>
+            <button mat-flat-button color="accent" (click)="confirmar()">
+                Sim, quero vincular
+            </button>
+        </div>
+    </div>
+    <div class="loading" *ngIf="loading">
+        <span class="confirm-text" style="color: black;">
+            Vinculando SKUS aguarde alguns instantes...
+        </span>
+        <div class="spinner">
+            <mat-spinner></mat-spinner>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,81 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <span class="title dialog-title">{{ dialogTitle }}</span>
+            <button mat-icon-button (click)="matDialogRef.close()" aria-label="Fechar">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+
+    <div mat-dialog-content class="p-24 pb-0 m-0" fusePerfectScrollbar *ngIf="!loading">
+        <div class="search-area">
+            <mat-form-field style="width: 78%;">
+                <input matInput placeholder="Buscar Agrupamentos Cadastrados" [(ngModel)]="agrupamento" />
+            </mat-form-field>
+            <a mat-flat-button class="search-btn" (click)="filtrarAgrupamento()">Buscar
+                <mat-icon>search</mat-icon>
+            </a>
+            <a mat-stroked-button class="clean-btn" (click)="limparFiltro()" *ngIf="agrupamento.length > 0">Limpar
+                <mat-icon>backspace</mat-icon>
+            </a>
+        </div>
+        <div class="example-viewer-source" [hidden]="noResult">
+            <div class="mat-elevation-z2">
+                <table mat-table [dataSource]="dataSourceAgrupamentos">
+                    <ng-container matColumnDef="checkbox">
+                        <th style="width: 160px;" mat-header-cell *matHeaderCellDef scope="col">
+                        </th>
+                        <td mat-cell *matCellDef="let agrupamento">
+                            <mat-checkbox [value]="agrupamento" (click)="insertAgrupamento(agrupamento)">
+                            </mat-checkbox>
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="nomeAgrupamento">
+                        <th mat-header-cell *matHeaderCellDef scope="col">
+                            Nome Agrupamento
+                        </th>
+                        <td mat-cell *matCellDef="let agrupamento" (click)="insertAgrupamento(agrupamento)">
+                            <small>
+                                {{ agrupamento.nome }}
+                            </small>
+                        </td>
+                    </ng-container>
+
+                    <!-- Sugerido Column -->
+                    <ng-container matColumnDef="sugerido">
+                        <th mat-header-cell *matHeaderCellDef scope="col">
+                            Sugerido
+                        </th>
+                        <td mat-cell *matCellDef="let agrupamento">
+                            <small>
+                                {{ agrupamento.sugerido == true ? 'Sim' : 'Não' }}
+                            </small>
+                        </td>
+                    </ng-container>
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+                </table>
+
+                <mat-paginator [pageSizeOptions]="[5, 10]" showFirstLastButtons></mat-paginator>
+
+                <div mat-dialog-actions class="m-0 p-16" fxLayout="row" fxLayoutAlign="end center">
+                    <button mat-button class="mr-8" (click)="matDialogRef.close(['delete',formGroup])"
+                        aria-label="Cancelar" matTooltip="Cancelar">
+                        Cancelar
+                    </button>
+                    <button mat-button class="accent" (click)="saveAgrupamento()" aria-label="Salvar"
+                        *ngIf="agrupamentosList.length > 0">
+                        Salvar
+                    </button>
+                </div>
+            </div>
+            <div *ngIf="noResult" class="no-result">
+                <mat-label>Nenhum Agrupamento Encontrado</mat-label>
+            </div>
+        </div>
+    </div>
+    <div class="loading" *ngIf="loading">
+        <mat-spinner></mat-spinner>
+    </div>
+</div>

@@ -1,0 +1,85 @@
+:host {
+    .content {
+        form {
+            width: 100%;
+        }
+
+        .form-errors-model {
+            flex: 1;
+
+            code {
+                background: none !important;
+            }
+        }
+
+        .example-button-row button,
+        .example-button-row a {
+            margin-right: 8px;
+            margin-top: 8px;
+        }
+
+        .horizontal-stepper-wrapper,
+        .vertical-stepper-wrapper {
+            max-width: 800px;
+        }
+
+        .mat-error {
+            margin-bottom: 1px;
+        }
+
+        .mat-checkbox {
+            margin-bottom: 5px;
+            padding-left: 5px;
+        }
+
+        .mat-divider-spacing {
+            margin-top: 10px;
+            margin-bottom: 20px;
+        }
+
+        .mat-label-padding {
+            padding-left: 5px;
+        }
+    }
+    .mb-15 {
+        margin-bottom: 15px;
+    }
+    .bg-light {
+        border: 0.5px solid #039be5;
+        border-radius: 5px;
+    }
+    .max-width {
+        max-width: calc(50% -32px);
+    }
+    .mt-15 {
+        margin-top: 15px;
+    }
+    .mr-15 {
+        margin-right: 15px;
+    }
+    .padding-top-left {
+        padding-left: 20px;
+        padding-top: 20px;
+    }
+
+    .rotated {
+        transform: rotate(180deg);
+    }
+
+    .rotatedZ {
+        transform: rotateX(180deg);
+        transform: rotateY(180deg);
+    }
+
+    .rotated-45 {
+        transform: rotate(90deg);
+    }
+
+    .rotated-270 {
+        transform: rotate(270deg);
+    }
+}
+
+.text-center {
+    text-align: center;
+}

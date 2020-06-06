@@ -1,0 +1,46 @@
+@import "../../admin.crud.scss";
+
+.bg-white {
+    background-color: white;
+}
+
+ .header {
+    background: #123261;
+}
+
+.text-white {
+    color: white;
+}
+
+.text-deafult-color {
+  color: #123261;  
+}
+
+.add-btn {
+    margin-top: 30px !important;
+}
+
+.search-area {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.search-btn {
+    background: #123261 !important;
+     color: white !important; 
+     margin-left: 5px; 
+     width: 12%;     
+     margin-bottom: 10px;
+}
+
+.clean-btn {
+    margin-left: 5px; 
+    margin-bottom: 10px;
+}
+
+::ng-deep  { 
+    .ps__thumb-y {
+        width: 15px;
+    }
+}

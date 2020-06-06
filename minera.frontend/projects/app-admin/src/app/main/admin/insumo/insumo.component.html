@@ -1,0 +1,129 @@
+<div class="page-layout simple fullwidth" fxLayout="column">
+    <!-- HEADER -->
+    <div class="header p-24" fxLayout="column" fxLayoutAlign="center center" fxLayout.gt-xs="row"
+        fxLayoutAlign.gt-xs="space-between center">
+        <div fxLayout="column" fxLayoutAlign="center center" fxLayout.gt-xs="column" fxLayoutAlign.gt-xs="center start">
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <mat-icon class="s-16 text-white">home</mat-icon>
+                <mat-icon class="s-16 text-white">chevron_right</mat-icon>
+                <span class="s-16 text-white">Insumos</span>
+            </div>
+            <div class="h1 mt-16 text-white">Listagem de Insumos</div>
+        </div>
+        <a mat-raised-button class="reference-button mt-16 mt-sm-0 add-btn" [routerLink]="['/insumo/novo']">
+            <mat-icon class="s-16 text-deafult-color">add_circle</mat-icon>
+            <span class="text-deafult-color"> Novo Insumo </span>
+        </a>
+    </div>
+    <!-- / HEADER -->
+
+    <div class="content p-24">
+        <div class="mat-card mat-elevation-z1 p-24 mr-24" fxLayout="column" fxLayoutAlign="start" fxFlex="1 0 auto">
+            <div class="example-viewer-source">
+                <div class="mat-elevation-z2" [hidden]="noResult">
+                    <table mat-table [dataSource]="dataSource">
+
+                        <ng-container matColumnDef="id">
+                            <th style="width: 70px;" mat-header-cell *matHeaderCellDef scope="col">
+                                Código
+                            </th>
+                            <td mat-cell *matCellDef="let row">
+                                <small> {{ row.id }} </small>
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="nome">
+                            <th style="width: 150px;" mat-header-cell *matHeaderCellDef scope="col">
+                                Nome Insumo
+                            </th>
+                            <td mat-cell *matCellDef="let row">
+                                <small>
+                                    {{ row.nome }}
+                                </small>
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="descricao">
+                            <th style="width: 170px;" mat-header-cell *matHeaderCellDef scope="col">
+                                Descrição do Insumo
+                            </th>
+                            <td mat-cell *matCellDef="let row">
+                                <small>
+                                    {{ row.descricao }}
+                                </small>
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="status">
+                            <th style="width: 150px;" mat-header-cell *matHeaderCellDef scope="col">
+                                Status do Insumo
+                            </th>
+                            <td mat-cell *matCellDef="let row">
+                                <small>
+                                    {{ row.status }}
+                                </small>
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="dataAquisicao">
+                            <th style="width: 150px;" mat-header-cell *matHeaderCellDef scope="col">
+                                Data da Aquisição
+                            </th>
+                            <td mat-cell *matCellDef="let row">
+                                <small>
+                                    {{ row.dataAquisicao | date: 'dd/MM/yyyy'}}
+                                </small>
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="dataProximaManutencao">
+                            <th style="width: 150px;" mat-header-cell *matHeaderCellDef scope="col">
+                                Data da Próxima Manutenção
+                            </th>
+                            <td mat-cell *matCellDef="let row">
+                                <small>
+                                    {{ row.dataProximaManutencao | date: 'dd/MM/yyyy'}}
+                                </small>
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="dataUltimaManutencao">
+                            <th style="width: 150px;" mat-header-cell *matHeaderCellDef scope="col">
+                                Data da Última Manutenção
+                            </th>
+                            <td mat-cell *matCellDef="let row">
+                                <small>
+                                    {{ row.dataUltimaManutencao | date: 'dd/MM/yyyy'}}
+                                </small>
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="buttons">
+                            <th mat-header-cell *matHeaderCellDef scope="col">
+                                Editar Insumo
+                            </th>
+                            <td mat-cell *matCellDef="let row">
+                                <a mat-icon-button color="primary" (click)="edit(row.id)">
+                                    <mat-icon matTooltip="Editar Insumo">edit</mat-icon>
+                                </a>
+                                <a mat-icon-button color="warn" (click)="removeInsumo(row.id)">
+                                    <mat-icon matTooltip="Excluir Insumo">delete
+                                    </mat-icon>
+                                </a>
+                            </td>
+                        </ng-container>
+
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+                    </table>
+
+                    <mat-paginator [pageSizeOptions]="[5, 10]" showFirstLastButtons></mat-paginator>
+                </div>
+
+            </div>
+            <div *ngIf="noResult">
+                <mat-label class="no-result">Nenhum Insumo Encontrado</mat-label>
+            </div>
+        </div>
+    </div>
+</div>

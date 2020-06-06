@@ -1,0 +1,194 @@
+@import "../../../../../../@fuse/scss//fuse.scss";
+
+::ng-deep .contact-form-dialog {
+
+    @include media-breakpoint('xs') {
+        width: 100%;
+    }
+
+    @include media-breakpoint('gt-xs') {
+        // width: 750px;
+        width: 2000px;
+        height: 1000px;
+    }
+
+    .mat-dialog-container {
+        padding: 0;
+        height: 1000px;
+
+        .mat-toolbar {
+            flex: 1 0 auto;
+            min-height: initial;
+        }
+
+        .toolbar-bottom {
+            height: auto;
+        }
+    }
+
+    .dialog-content-wrapper {
+        // max-height: 85vh;
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+::ng-deep .mat-dialog-content {
+    max-height: none;
+}
+.departamento {
+    display: inline;
+    padding: 10px;
+    .mat-form-field {
+
+                    width: 145px;
+                }
+}
+
+.categoria {
+    display: inline;
+    .mat-form-field {
+
+                    width: 145px;
+                }
+}
+
+.subCategoria {
+    display: inline;
+    padding: 10px;
+    .mat-form-field {
+
+                    width: 145px;
+                }
+}
+
+.seguimento {
+    display: inline;
+    padding: 10px;
+    .mat-form-field {
+
+                    width: 145px;
+                }
+}
+
+.filtroNome {
+    width: 60%;
+}
+
+.filtroLetra {
+    width: 10% !important;
+}
+
+.padraoFiltros {
+    width: 17% !important;
+}
+
+.selectOption {
+    height: inherit;
+    overflow: none;
+}
+
+.btnAlphabet {
+    margin-left: 10px;
+}
+
+.check-box{
+    margin: -1%;
+    color: #7e7e7e;
+}
+
+.add-atributo-button{
+    padding-left: 93%;
+    margin-top: 25px;
+}
+
+.mat-form-field {
+    &.mat-form-field-type-mat-select {
+
+        .mat-form-field-wrapper {
+            padding: 16px 0;
+            width: 138px;
+            .mat-form-field-infix {
+                width: 138px;
+            }
+        }
+
+        .mat-form-field-underline {
+            display: table;
+        }
+    }
+}
+
+::ng-depp .mat-dialog-container, .dialog-content-wrapper{
+    padding: 0px;
+}
+
+.text-deafult-color {
+  color: #123261;  
+}
+
+.filters {
+    margin-top: 15px;
+    padding-bottom: 20px;
+    margin-bottom: 25px;
+}
+
+.tabelaSkus {
+    margin-bottom: 15px;
+}
+.no-result {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    padding-bottom: 20px;
+}
+
+.buttons {
+    justify-content: flex-end;
+}
+
+.titulo-atributos-respostas {
+    padding-top: 15px;
+    font-size: 15px;
+    border-top: 1px solid #123261;    
+}
+
+.atributos {
+    display: initial;
+}
+
+.atributo-select {
+    width: 20%;
+    margin-right: 15px;
+}
+
+.back-next-icons {
+    cursor: pointer;
+    color: black;
+}
+
+.pagination {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+
+.loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 15px;
+    margin-top: 15px;
+}
+
+.total-de-skus {
+  color: white;
+  background: #123261;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 7px;
+  border-radius: 7px 7px 0px 0px;
+}

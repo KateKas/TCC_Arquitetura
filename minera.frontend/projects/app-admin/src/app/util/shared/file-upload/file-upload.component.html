@@ -1,0 +1,26 @@
+<div
+    fxLayout="row"
+    fxLayoutAlign="start center"
+    fxFlex="1 0 auto"
+    class="mb-4 d-flex-center"
+>
+    <div fxFlex="100" class="mb-4 px-50">
+        <h3>{{ title }}</h3>
+        <img class="img-upload" #blob alt="" />
+        <input
+            size="10"
+            type="file"
+            id="file"
+            accept="*"
+            class="upload"
+            (change)="onFileChange($event)"
+            #form
+        />
+        <input
+            type="button"
+            class="btn-upload"
+            value="Escolha um arquivo"
+            (click)="form.click()"
+        />
+    </div>
+</div>

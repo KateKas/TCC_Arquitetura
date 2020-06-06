@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "/subscriptions/e4023df8-d59c-44c0-b617-e3f3e7dab540/resourceGroups/minera/providers/Microsoft.Web/sites/mineraweb",
+    "appService.deploySubpath": "dist\\app-admin"
+}

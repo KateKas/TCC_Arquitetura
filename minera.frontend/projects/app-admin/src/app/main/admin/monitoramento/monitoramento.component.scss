@@ -1,0 +1,90 @@
+@import '../admin.crud.scss';
+
+.bg-white {
+    background-color: white;
+}
+
+ .header {
+    background: #123261;
+}
+
+.text-white {
+    color: white;
+}
+
+.text-deafult-color {
+  color: #123261;  
+}
+
+.add-btn {
+    margin-top: 30px !important;
+}
+
+.search-area {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.search-btn {
+    background: #123261 !important;
+     color: white !important; 
+     margin-left: 5px; 
+     width: 12%;     
+     margin-bottom: 10px;
+}
+
+.clean-btn {
+    margin-left: 5px; 
+    margin-bottom: 10px;
+}
+
+::ng-deep  { 
+    .ps__thumb-y {
+        width: 15px;
+    }
+}
+
+.card{
+    background-color: #f44336 !important;
+    color: white !important;
+    margin: 0% 25% 2% 25%;
+    //margin: 0% 35%;
+    text-align: center;
+    padding: 6px !important;
+}
+
+.mat-card{
+    padding: 6px !important;
+}
+
+.card-filter{
+    background-color: white !important;
+    color: black !important;
+    text-align: center;
+    padding: 13px 10px 0px 10px;
+    margin: 8% 2% 0% 7%;
+}
+
+.mat-card-subtitle{
+    color: white !important;
+}
+
+.margem{
+    margin: 2% 1%;
+    padding: 8 !important;
+}
+
+.pesquisa{
+    padding: 15px;
+    margin-top: 6px;
+}
+
+.titulo-panel {
+    font-weight: bolder !important;
+    color: #4F4F4F !important;
+}
+
+.mat-expansion-panel-header{
+    padding: 5px 450px;
+}

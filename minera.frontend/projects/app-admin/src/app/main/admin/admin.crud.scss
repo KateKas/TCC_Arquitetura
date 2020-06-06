@@ -1,0 +1,27 @@
+table {
+    width: 100%;
+}
+
+
+.mat-form-field {
+    font-size: 14px;
+    @extend table
+}
+
+.example-viewer-source {
+    @extend table
+}
+
+.no-result {
+    margin-top: 15px;
+    display: block;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    text-align: center;
+    line-height: 150%;
+    font-size: 1.0em;
+}
+
+.ml-15 {
+    margin-left: 15px;
+}

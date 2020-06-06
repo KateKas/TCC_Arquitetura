@@ -1,0 +1,69 @@
+<div id="forms" class="page-layout simple fullwidth" fxLayout="column">
+    <!-- HEADER -->
+    <div class="header p-24" fxLayout="column" fxLayoutAlign="center center" fxLayout.gt-xs="row"
+        fxLayoutAlign.gt-xs="space-between center">
+        <div fxLayout="column" fxLayoutAlign="center center" fxLayout.gt-xs="column" fxLayoutAlign.gt-xs="center start">
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <mat-icon class="s-16 text-white">home</mat-icon>
+                <mat-icon class="s-16 text-white">chevron_right</mat-icon>
+                <span class="text-white">Manutenção</span>
+            </div>
+            <div class="h1 mt-16">
+                <span *ngIf="!manutencaoDetail" class="text-white">Nova Manutenção</span>
+                <span *ngIf="manutencaoDetail" class="text-white">Editar Manutenção:
+                    {{ manutencaoDetail.nome }}</span>
+            </div>
+        </div>
+    </div>
+    <!-- / HEADER -->
+
+    <!-- CONTENT -->
+    <div class="content p-24" fxLayout="column">
+        <div class="mat-card mat-elevation-z1 p-24 mr-24" fxLayout="column" fxLayoutAlign="start">
+            <h3>Preencha os campos abaixo para criar uma nova Manuteção</h3>
+            <form class="" name="form" [formGroup]="form">
+                <div class="tab-content" fusePerfectScrollbar>
+                    <div style="float: left; width: 100%;">
+
+                        <mat-checkbox class="check-box" formControlName="status">
+                            Status</mat-checkbox>
+                        <p>
+
+                        </p>
+
+                        <mat-form-field appearance="outline" class="w-60-p">
+                            <mat-label>Descrição da Manutenção</mat-label>
+                            <input matInput placeholder="Descrição da Manutenção" name="descricao" formControlName="descricao" type="text">
+                        </mat-form-field>
+
+                        <div style="width: 500px;">
+                            <mat-form-field ppearance="outline" class="w-60-p">
+                                <mat-label>Data da Manutenção</mat-label>
+                                <input matInput [matDatepicker]="data" formControlName="data">
+                                <mat-datepicker-toggle matSuffix [for]="data"></mat-datepicker-toggle>
+                                <mat-datepicker #data></mat-datepicker>
+                            </mat-form-field>
+                        </div>
+                        
+                        <div style="width: 400px;">
+                        <mat-form-field appearance="outline" class="w-60-p">
+                            <mat-label>Tipo da Manutenção</mat-label>
+                            <input matInput placeholder="Tipo da Manutenção" name="descricao" formControlName="tipo" type="number">
+                        </mat-form-field>
+                        </div>
+
+                    </div>
+                </div>
+            </form>
+
+            <div class="example-button-row">
+                <a mat-flat-button color="accent" type="button" (click)="saveManutencao()" [disabled]="form.invalid">
+                    <span> Salvar </span>
+                </a>
+                <a mat-stroked-button type="button" [routerLink]="['/manutencao']">
+                    <span> Voltar </span>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

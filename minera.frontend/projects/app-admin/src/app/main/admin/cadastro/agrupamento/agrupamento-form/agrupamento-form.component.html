@@ -1,0 +1,455 @@
+<div id="forms" class="page-layout simple fullwidth" fxLayout="column">
+    <!-- HEADER -->
+    <div class="header p-24" fxLayout="column" fxLayoutAlign="center center" fxLayout.gt-xs="row"
+        fxLayoutAlign.gt-xs="space-between center">
+        <div fxLayout="column" fxLayoutAlign="center center" fxLayout.gt-xs="column" fxLayoutAlign.gt-xs="center start">
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <mat-icon class="s-16 text-white">home</mat-icon>
+                <mat-icon class="s-16 text-white">chevron_right</mat-icon>
+                <span class="text-white">Agrupamento</span>
+            </div>
+            <div class="h1 mt-16">
+                <span *ngIf="!agrupamentoDetail" class="text-white">Novo Agrupamento</span>
+                <span *ngIf="agrupamentoDetail" class="text-white">Editar Agrupamento:
+                    {{ agrupamentoDetail.nome }}</span>
+            </div>
+        </div>
+    </div>
+    <!-- / HEADER -->
+
+    <!-- CONTENT -->
+    <div class="content p-24" fxLayout="column">
+        <div class="mat-card mat-elevation-z1 p-24 mr-24" fxLayout="column" fxLayoutAlign="start">
+            <form class="" name="form" [formGroup]="form">
+                <div class="tab-content p-24" fusePerfectScrollbar>
+                    <div style="float: left; width: 100%;">
+                        <mat-form-field appearance="outline" class="w-60-p">
+                            <mat-label>Nome Agrupamento</mat-label>
+                            <input matInput placeholder="Nome Agrupamento" name="nome" formControlName="nome"
+                                type="text">
+                        </mat-form-field>
+                        <mat-checkbox class="check-box" formControlName="ativo">
+                            Ativo</mat-checkbox>
+                        <mat-checkbox class="check-box" formControlName="podeSugerir">
+                            Pode Ser Sugerido</mat-checkbox>
+                    </div>
+                </div>
+            </form>
+            <!-- Expasion ATRIBUTO -->
+            <mat-accordion *ngIf="showAtributosAgrupamentoSku">
+                <mat-expansion-panel class="mb-15 bg-light expand" [expanded]="false">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title class="titulo-panel">
+                            Atributos
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+
+                    <div class="center p-24 pb-56">
+                        <div class="content">
+                            <div class="search-area">
+                                <mat-form-field style="width: 78%;">
+                                    <input matInput placeholder="Buscar Atributos" [(ngModel)]="atributoBuscado" />
+                                </mat-form-field>
+                                <a mat-flat-button class="search-btn" (click)="filtrarAtributo()">Buscar
+                                    <mat-icon>search</mat-icon>
+                                </a>
+                                <a mat-stroked-button (click)="limparAtributo()" *ngIf="atributoBuscado?.length > 0"
+                                    class="clean-btn">Limpar
+                                    <mat-icon>backspace</mat-icon>
+                                </a>
+                            </div>
+                            <mat-table *ngIf="hasAtributos" [dataSource]="dataSourceAtributos" class="mat-elevation-z2">
+                                <ng-container matColumnDef="nomeAtributo">
+                                    <mat-header-cell *matHeaderCellDef fxHide fxShow.gt-md>
+                                        Nome do Atributo
+                                    </mat-header-cell>
+                                    <mat-cell *matCellDef="let atributo">
+                                        <p class="text-truncate font-weight-600">
+                                            {{ atributo.nome }}
+                                        </p>
+                                    </mat-cell>
+                                </ng-container>
+
+                                <ng-container matColumnDef="prioritario">
+                                    <mat-header-cell *matHeaderCellDef fxHide fxShow.gt-md>
+                                        Prioridade
+                                    </mat-header-cell>
+                                    <mat-cell *matCellDef="let atributo" fxHide fxShow.gt-md>
+                                        <p class="text-truncate font-weight-600">
+                                            {{ atributo.prioridade }}
+                                        </p>
+                                    </mat-cell>
+                                </ng-container>
+
+                                <ng-container matColumnDef="acoes">
+                                    <mat-header-cell *matHeaderCellDef fxHide fxShow.gt-sm>
+                                        Ações
+                                    </mat-header-cell>
+                                    <mat-cell *matCellDef="let atributo" fxHide fxShow.gt-sm>
+                                        <a mat-icon-button color="primary" (click)="newEditAtributo(atributo)">
+                                            <mat-icon matTooltip="Editar">edit</mat-icon>
+                                        </a>
+                                        <a mat-icon-button color="primary"
+                                            (click)="aumentarPrioridadeAtributo(atributo)">
+                                            <mat-icon matTooltip="Priorizar atributo">arrow_upward
+                                            </mat-icon>
+                                        </a>
+                                        <a mat-icon-button color="primary"
+                                            (click)="diminuirPrioridadeAtributo(atributo)">
+                                            <mat-icon matTooltip="Despriorizar atributo">arrow_downward
+                                            </mat-icon>
+                                        </a>
+                                        <a mat-icon-button color="warn" (click)="removeAtributo(atributo)">
+                                            <mat-icon matTooltip="Remover Atributo">remove_circle_outline
+                                            </mat-icon>
+                                        </a>
+                                    </mat-cell>
+                                </ng-container>
+
+                                <mat-header-row *matHeaderRowDef="displayedAtributosColumns"></mat-header-row>
+                                <mat-row *matRowDef="let row; columns: displayedAtributosColumns;">
+                                </mat-row>
+                            </mat-table>
+                        </div>
+                        <div *ngIf="!hasAtributos">
+                            <mat-label class="no-result text-deafult-color">Nenhum atributo encontrado.
+                            </mat-label>
+                        </div>
+                        <div class="add-atributo-button">
+                            <a mat-flat-button class="accent inserir-skus" (click)="newEditAtributo()"
+                                matTooltip="Inserir Atributo" [matTooltipPosition]="'after'">
+                                <span>Inserir Atributo</span>
+                            </a>
+                        </div>
+                    </div>
+                    <!-- ADD ATRIBUTO BUTTON -->
+
+                </mat-expansion-panel>
+            </mat-accordion>
+
+            <!-- Expasion Agrupamentos Correlatos -->
+            <mat-accordion *ngIf="showAtributosAgrupamentoSku">
+                <mat-expansion-panel class="mb-15 bg-light expand" [expanded]="false">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title class="titulo-panel">
+                            Agrupamentos Correlatos
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+
+                    <!-- Inicio -->
+                    <div class="center p-24 pb-56" fusePerfectScrollbar>
+                        <div class="content" *ngIf="hasAgrupamentos">
+                            <mat-table #table [dataSource]="dataSource" [@animateStagger]="{value:'50'}"
+                                fusePerfectScrollbar class="mat-elevation-z2">
+                                <!-- Name Agrupamento Column -->
+                                <ng-container matColumnDef="nomeAgrupamento">
+                                    <mat-header-cell *matHeaderCellDef fxHide fxShow.gt-md>Nome
+                                        Agrupamento</mat-header-cell>
+                                    <mat-cell *matCellDef="let agrupamento" fxHide fxShow.gt-md>
+                                        <p class="text-truncate font-weight-600">
+                                            {{ agrupamento.nome }}
+                                        </p>
+                                    </mat-cell>
+                                </ng-container>
+
+
+                                <ng-container matColumnDef="prioritario">
+                                    <mat-header-cell *matHeaderCellDef fxHide fxShow.gt-md>
+                                        Prioridade</mat-header-cell>
+                                    <mat-cell *matCellDef="let agrupamento" fxHide fxShow.gt-md>
+                                        <p class="text-truncate font-weight-600">
+                                            {{agrupamento.prioridade}}
+                                        </p>
+                                    </mat-cell>
+                                </ng-container>
+
+
+                                <!-- Sugerido Agrupamento Column -->
+                                <ng-container matColumnDef="sugerido">
+                                    <mat-header-cell *matHeaderCellDef fxHide fxShow.gt-sm>Sugerido
+                                    </mat-header-cell>
+                                    <mat-cell *matCellDef="let agrupamento" fxHide fxShow.gt-sm>
+                                        <p class="email text-truncate">
+                                            {{ agrupamento.sugerido == true ? 'Sim' : 'Não' }}
+                                        </p>
+                                    </mat-cell>
+                                </ng-container>
+
+                                <ng-container matColumnDef="acoes">
+                                    <mat-header-cell *matHeaderCellDef fxHide fxShow.gt-sm>Ações
+                                    </mat-header-cell>
+                                    <mat-cell *matCellDef="let agrupamento" fxHide fxShow.gt-sm>
+                                        <a mat-icon-button color="primary" (click)="newEditAgrupamento(agrupamento)">
+                                            <mat-icon matTooltip="Editar">edit</mat-icon>
+                                        </a>
+                                        <a mat-icon-button color="primary"
+                                            (click)="aumentarPrioridadeAgrupamento(agrupamento)">
+                                            <mat-icon matTooltip="Priorizar atributo">arrow_upward
+                                            </mat-icon>
+                                        </a>
+                                        <a mat-icon-button color="primary"
+                                            (click)="diminuirPrioridadeAgrupamento(agrupamento)">
+                                            <mat-icon matTooltip="Despriorizar atributo">arrow_downward
+                                            </mat-icon>
+                                        </a>
+                                        <a mat-icon-button color="warn"
+                                            (click)="removeAgrupamentoCorrelato(agrupamento)">
+                                            <mat-icon matTooltip="Remover agrupamento">remove_circle_outline
+                                            </mat-icon>
+                                        </a>
+                                    </mat-cell>
+                                </ng-container>
+
+                                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                                <mat-row *matRowDef="let contact; columns: displayedColumns;" class="contact" matRipple
+                                    [@animate]="{value:'*',params:{y:'100%'}}">
+                                </mat-row>
+                            </mat-table>
+
+                            <!-- ADD AGRUPAMENTO CORRELATOS BUTTON -->
+                        </div>
+                        <div *ngIf="!hasAgrupamentos">
+                            <mat-label class="no-result text-deafult-color">Nenhum agrupamento correlato
+                                atribuido.
+                            </mat-label>
+                        </div>
+                        <div class="add-correlato-button">
+                            <a mat-flat-button class="accent inserir-skus" (click)="newEditAgrupamento()"
+                                matTooltip="Inserir Agrupamento Correlato" [matTooltipPosition]="'after'">
+                                <span>Inserir Agrupamento Correlato</span>
+                            </a>
+                        </div>
+                    </div>
+                </mat-expansion-panel>
+            </mat-accordion>
+
+            <!-- Expasion RESPOSTA -->
+            <mat-accordion *ngIf="showAtributosAgrupamentoSku">
+                <mat-expansion-panel class="mb-15 bg-light expand" [expanded]="showCollapseSku">
+                    <mat-expansion-panel-header (click)="mostraCollapseSku()">
+                        <mat-panel-title class="titulo-panel">
+                            Produtos Associados
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <div class="center p-24 pb-56">
+                        <span *ngIf="hasSkus || emptySearch">Busque nos produtos associados o produto que deseja
+                            utilizando
+                            o filtro:</span>
+                        <form name="filters" [formGroup]="filters" class="filters" *ngIf="hasSkus || emptySearch">
+                            <mat-form-field class="filtroNome">
+                                <input matInput placeholder="Nome ou Código interno ou EAN do Produto"
+                                    formControlName="nomeSku" />
+                            </mat-form-field>
+
+                            <div class="departamento">
+                                <mat-form-field class="filtroLetra">
+                                    <mat-label>Letra</mat-label>
+                                    <mat-select formControlName="letraSku">
+                                        <mat-option *ngFor="let char of alphabet" [value]="char">
+                                            {{ char }}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+
+                            <div class="departamento">
+                                <mat-form-field class="padraoFiltros">
+                                    <mat-label>Departamento</mat-label>
+                                    <mat-select formControlName="departamentoSku" multiple>
+                                        <mat-option matTooltip="{{ departamento.descricao }}"
+                                            *ngFor="let departamento of departamentos" [value]="departamento"
+                                            (click)="habilitarCategorias()">
+                                            {{ departamento.descricao }}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+
+                            <div class="categoria">
+                                <mat-form-field class="padraoFiltros">
+                                    <mat-label>Categoria</mat-label>
+                                    <mat-select formControlName="categoriaSku" multiple>
+                                        <mat-option matTooltip="{{ categoria.descricao }}" value="categoria.descricao"
+                                            *ngFor="let categoria of categorias" [value]="categoria"
+                                            (click)="habilitarSubCategoria()">
+                                            {{ categoria.descricao }}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+
+                            <div class="subCategoria">
+                                <mat-form-field class="padraoFiltros">
+                                    <mat-label>Sub-Categoria</mat-label>
+                                    <mat-select formControlName="subCategoriaSku" multiple>
+                                        <mat-option matTooltip="{{ subCategoria.descricao }}"
+                                            *ngFor="let subCategoria of subCategorias" [value]="subCategoria"
+                                            (click)="habilitarSegmento()">
+                                            {{ subCategoria.descricao }}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+
+                            <div class="segmento">
+                                <mat-form-field class="padraoFiltros">
+                                    <mat-label>Segmento</mat-label>
+                                    <mat-select formControlName="segmentoSku" multiple>
+                                        <mat-option matTooltip="{{ segmento.descricao }}" class="selectOption"
+                                            *ngFor="let segmento of segmentos" [value]="segmento"
+                                            (click)="habilitarSubSegmento()">
+                                            {{ segmento.descricao }}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+
+                            <div class="segmento">
+                                <mat-form-field class="padraoFiltros">
+                                    <mat-label>Sub-Segmento</mat-label>
+                                    <mat-select (change)="noPagination = false" formControlName="subSegmentoSku"
+                                        multiple>
+                                        <mat-option matTooltip="{{ subSegmento.descricao }}" class="selectOption"
+                                            *ngFor="let subSegmento of subSegmentos" [value]="subSegmento">
+                                            {{ subSegmento.descricao }}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+
+                            <a mat-flat-button style="background: #123261; color: white; margin-right: 5px;"
+                                (click)="searchSkus($event)">Buscar
+                                <mat-icon>
+                                    search</mat-icon></a>
+                            <a mat-stroked-button (click)="limparFiltrosSku()">Limpar
+                                <mat-icon>
+                                    backspace</mat-icon>
+                            </a>
+                        </form>
+                        <div class="atributos-respostas" *ngIf="hasSkus">
+                            <div>
+                                <mat-label class="titulo-atributos-respostas">*Caso deseje, insira as respostas
+                                    de cada atributo para os
+                                    produtos selecionados</mat-label>
+                            </div>
+                            <ng-container *ngFor="let atributo of atributosRespostas">
+                                <mat-form-field class="atributo-select">
+                                    <mat-label>{{atributo.nome}}</mat-label>
+                                    <mat-select>
+                                        <mat-option matTooltip="{{ resposta.nome }}"
+                                            *ngFor="let resposta of atributo.respostas" [value]="resposta"
+                                            (click)="addRespostaAtributo(resposta)">
+                                            {{ resposta.nome }}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </ng-container>
+                        </div>
+                        <div class="insert-delete-sku">
+                            <a mat-flat-button class="accent inserir-skus"
+                                *ngIf="showAtributosAgrupamentoSku && hasSkus" (click)="saveAgrupamento()"
+                                matTooltip="Salvar produto(s)" [matTooltipPosition]="'after'">
+                                <span>Salvar produto(s)</span>
+                            </a>
+                            <a mat-flat-button class="accent inserir-skus" (click)="atribuiNovoSku()"
+                                aria-label="Atribuir novo produto" matTooltip="Atribuir novo produto"
+                                [matTooltipPosition]="'after'">
+                                <span>Atribuir Novo(s) Produto(s)</span>
+                            </a>
+                            <a mat-flat-button color="warn" *ngIf="hasSkus" (click)="removeSku()">
+                                <span *ngIf="checkedSkuCodigo.length === 0">Excluir todos os produtos vinculados</span>
+                                <span *ngIf="checkedSkuCodigo.length > 0">Excluir produto(s) selecionados</span>
+                            </a>
+                        </div>
+                        <div class="total-de-skus" *ngIf="hasSkus">
+                            <span class="info">
+                                Total de produtos associados:
+                            </span>
+                            <b style="margin-left: 10px;">{{agrupamentoDetail.produtosAssociados}}</b>
+                            <ng-container *ngIf="totalFitrados > 0">
+                                <span class="divider-total">|</span>
+                                <span class="info">
+                                    Total de produtos filtrados:
+                                </span>
+                                <b style="margin-left: 10px;">{{totalFitrados}}</b>
+                            </ng-container>
+                        </div>
+                        <div *ngIf="hasSkus">
+                            <div class="table-skus" id="table-skus" (mouseenter)="mouseEnterTableSkus()"
+                                (mouseleave)="mouseLeaveTableSkus()" (scroll)="onScrollPagination($event)">
+                                <table mat-table [dataSource]="dataSourceSKU" #matTableSKU>
+                                    <ng-container matColumnDef="checkbox">
+                                        <th style="width: 160px;" mat-header-cell *matHeaderCellDef scope="col">
+                                            <mat-checkbox *ngIf="codigosAtributosRespostasSelecionadas.length > 0"
+                                                (change)="selecionarTodos($event)" [(ngModel)]="checked">
+                                            </mat-checkbox>
+                                        </th>
+                                        <td mat-cell *matCellDef="let sku">
+                                            <mat-checkbox [value]="sku" [checked]="checked"
+                                                (change)="addCheckedSku(sku, $event)">
+                                            </mat-checkbox>
+                                        </td>
+                                    </ng-container>
+                                    <ng-container matColumnDef="edit">
+                                        <th mat-header-cell *matHeaderCellDef scope="col">
+                                            Editar
+                                        </th>
+                                        <td mat-cell *matCellDef="let sku" style="padding-right: 15px;">
+                                            <a mat-icon-button color="primary" (click)="editRespostaSku(sku)">
+                                                <mat-icon matTooltip="Editar Respostas">edit</mat-icon>
+                                            </a>
+                                        </td>
+                                    </ng-container>
+                                    <ng-container matColumnDef="name">
+                                        <th style="width: 1500px;" mat-header-cell *matHeaderCellDef scope="col">
+                                            Descrição
+                                        </th>
+                                        <td mat-cell *matCellDef="let sku" style="padding-right: 15px;">
+                                            <small>{{ sku.descricao }}</small>
+                                        </td>
+                                    </ng-container>
+
+                                    <ng-container *ngFor="let atributoColuns of displayedSKUColumns  | slice: 3"
+                                        matColumnDef="{{atributoColuns}}">
+                                        <th style="width: 680px;" mat-header-cell *matHeaderCellDef scope="col">
+                                            {{atributoColuns}}
+                                        </th>
+                                        <td mat-cell *matCellDef="let sku">
+                                            <ng-container
+                                                *ngFor="let associacaoResposta of sku.associacaoRespostaAtributo">
+                                                <small matInput
+                                                    *ngIf="associacaoResposta.nomeAtributo === atributoColuns">
+                                                    {{ associacaoResposta.nomeResposta.length > 0 ? associacaoResposta.nomeResposta : 'Não se aplica' }}
+                                                </small>
+                                            </ng-container>
+                                        </td>
+                                    </ng-container>
+
+                                    <tr mat-header-row *matHeaderRowDef="displayedSKUColumns"></tr>
+                                    <tr mat-row *matRowDef="let row; columns: displayedSKUColumns"></tr>
+                                </table>
+
+                            </div>
+
+                        </div>
+                        <div *ngIf="!hasSkus">
+                            <mat-label class="no-result text-deafult-color">Nenhum produto encontrado
+                            </mat-label>
+                        </div>
+                    </div>
+                </mat-expansion-panel>
+            </mat-accordion>
+
+            <div class="example-button-row">
+                <a mat-flat-button color="accent" type="button" (click)="saveAgrupamento()" [disabled]="form.invalid">
+                    <span *ngIf="showAtributosAgrupamentoSku">Salvar</span>
+                    <span *ngIf="!showAtributosAgrupamentoSku">Inserir Atributos</span>
+                </a>
+                <a mat-flat-button class="voltar-lista" [routerLink]="['/agrupamento']">
+                    <span>Voltar Para Lista de Agrupamentos</span>
+                </a>
+            </div>
+
+        </div>
+    </div>
+</div>

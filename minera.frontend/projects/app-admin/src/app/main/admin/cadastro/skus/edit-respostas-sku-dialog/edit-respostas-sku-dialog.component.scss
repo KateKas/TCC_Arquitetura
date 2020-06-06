@@ -1,0 +1,55 @@
+@import "../../../../../../@fuse/scss//fuse.scss";
+
+::ng-deep .contact-form-dialog-edit-respostas {
+
+    @include media-breakpoint('xs') {
+        width: 100%;
+    }
+
+    @include media-breakpoint('gt-xs') {
+        width: 750px;
+    }
+
+    .mat-dialog-container {
+        padding: 0;
+
+        .mat-toolbar {
+            flex: 1 0 auto;
+            min-height: initial;
+        }
+
+        .toolbar-bottom {
+            height: auto;
+        }
+    }
+
+    .dialog-content-wrapper {
+        max-height: 85vh;
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+.autocomplete {
+    max-height: 150px !important;
+}
+
+.dialog-title {
+    margin-right: 15px;
+}
+
+.loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 25px;
+}
+
+.atributo-select {
+    width: 20%;
+    margin-right: 15px;
+}
+
+.descricao {
+    margin-bottom: 20px;
+}

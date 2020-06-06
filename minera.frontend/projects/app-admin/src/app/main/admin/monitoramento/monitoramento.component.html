@@ -1,0 +1,97 @@
+<div class="page-layout simple fullwidth" fxLayout="column">
+    <!-- HEADER -->
+    <div class="header p-24" fxLayout="column" fxLayoutAlign="center center" fxLayout.gt-xs="row"
+        fxLayoutAlign.gt-xs="space-between center">
+        <div fxLayout="column" fxLayoutAlign="center center" fxLayout.gt-xs="column" fxLayoutAlign.gt-xs="center start">
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <mat-icon class="s-16 text-white">home</mat-icon>
+                <mat-icon class="s-16 text-white">chevron_right</mat-icon>
+                <span class="s-16 text-white">Monitoramento</span>
+            </div>
+            <div class="h1 mt-16 text-white">Monitoramento</div>
+        </div>
+    </div>
+    <!-- / HEADER -->
+
+    <div class="content p-24">
+        <div class="mat-card mat-elevation-z1 p-24 mr-24" fxLayout="column" fxLayoutAlign="start" fxFlex="1 0 auto">
+            <div class="example-viewer-source">
+                <div class="mat-elevation-z2">
+
+                    <div class="page-layout simple fullwidth" fxLayout="column">
+
+                        <div class="bg-white pesquisa" fxLayout="row" fxLayoutAlign="center">
+                            <mat-form-field appearance="outline" fxFlex class="pl-4">
+                                <mat-label>Barões de Cocais</mat-label>
+                                <mat-select [(ngModel)]="barragem">
+                                    <mat-option *ngFor="let barragem of barragensList" [value]="barragem">
+                                        {{ barragem.nomeBarragem }}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="bg-white" fxLayout="row" fxFlex="auto">
+
+                            <div fxLayout="column" fxFlex="50%">
+                                <mat-card class="card">
+                                    <mat-card-subtitle>{{ diaAtual }}</mat-card-subtitle>
+                                    <mat-card-title>{{ numeroRotas }}</mat-card-title>
+                                    <mat-card-content> Nível de Risco da Barragem </mat-card-content>
+                                    <mat-card-content *ngIf="numeroRotas == 0">Não há laudos a serem mostradas hoje
+                                    </mat-card-content>
+                                </mat-card>
+
+                                <div class="margem" *ngIf="numeroRotas != 0" fxFlex="45%">
+                                    <mat-card>
+                                        <google-chart #chart *ngIf="pieChart != null" [title]="pieChart.title"
+                                            [type]="pieChart.type" [data]="pieChart.data"
+                                            [columnNames]="pieChart.columnNames" [options]="pieChartOptions"
+                                            [width]="pieChart.width" [height]="pieChart.height">
+                                        </google-chart>
+                                    </mat-card>
+                                </div>
+
+                            </div>
+
+
+                            <div fxLayout="column" fxFlex="50%">
+                                <div>
+                                    <mat-form-field appearance="outline" fxFlex class="pl-4">
+                                        <input matInput readonly [max]="today" (dateChange)="setDataInicio($event)"
+                                            [matDatepicker]="picker" placeholder="Data Inicial">
+                                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                        <mat-datepicker #picker></mat-datepicker>
+                                    </mat-form-field>
+
+                                    <mat-form-field appearance="outline" fxFlex class="pl-4">
+                                        <input matInput readonly [min]="minFinalDate" [max]="maxFinalDate"
+                                            (dateChange)="setDataFim($event)" [matDatepicker]="picker2"
+                                            placeholder="Data Final">
+                                        <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                                        <mat-datepicker #picker2></mat-datepicker>
+                                    </mat-form-field>
+                                </div>
+
+                                <button class="buscar" mat-flat-button color="accent" type="button" (click)="filtrar()">
+                                    Filtrar
+                                </button>
+
+                                <div class="margem" fxFlex="45%">
+                                    <mat-card>
+                                        <google-chart #chart *ngIf="columnChart != null" [title]="columnChart.title"
+                                            [type]="columnChart.type" [data]="columnChart.data"
+                                            [columnNames]="columnChart.columnNames" [options]="columnChartOptions"
+                                            [width]="columnChart.width" [height]="columnChart.height">
+                                        </google-chart>
+                                    </mat-card>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

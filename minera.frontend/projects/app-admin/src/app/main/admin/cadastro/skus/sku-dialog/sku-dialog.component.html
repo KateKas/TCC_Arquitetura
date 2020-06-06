@@ -1,0 +1,178 @@
+<div class="dialog-content-wrapper" (scroll)="onScrollPagination($event)">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <span class="title dialog-title">{{ dialogTitle }}</span>
+            <button mat-icon-button (click)="matDialogRef.close()" aria-label="Fechar" style="margin-left: 55%">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+
+    <div mat-dialog-content class="pb-0 m-0">
+        <form name="filters" [formGroup]="filters" class="filters">
+            <div>
+                <span>Utilize o filtro para buscar o produto que deve ser inserido para este agrupamento:</span>
+            </div>
+            <mat-form-field class="filtroNome">
+                <input matInput placeholder="Nome ou Código interno ou EAN do Produto" formControlName="nomeSku"
+                    (change)="noPagination = false" />
+            </mat-form-field>
+
+            <div class="departamento">
+                <mat-form-field class="filtroLetra">
+                    <mat-label>Letra</mat-label>
+                    <mat-select (change)="noPagination = false" formControlName="letraSku">
+                        <mat-option *ngFor="let char of alphabet" [value]="char">
+                            {{ char }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+            <div class="departamento">
+                <mat-form-field style="width: 20%">
+                    <mat-label>Departamento</mat-label>
+                    <mat-select (change)="noPagination = false" formControlName="departamentoSku" multiple>
+                        <mat-option matTooltip="{{ departamento.descricao }}" *ngFor="let departamento of departamentos"
+                            [value]="departamento" (click)="habilitarCategorias()">
+                            {{ departamento.descricao }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+            <div class="categoria">
+                <mat-form-field class="padraoFiltros">
+                    <mat-label>Categoria</mat-label>
+                    <mat-select (change)="noPagination = false" formControlName="categoriaSku" multiple>
+                        <mat-option matTooltip="{{ categoria.descricao }}" value="categoria.descricao"
+                            *ngFor="let categoria of categorias" [value]="categoria" (click)="habilitarSubCategoria()">
+                            {{ categoria.descricao }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+            <div class="subCategoria">
+                <mat-form-field class="padraoFiltros">
+                    <mat-label>Sub-Categoria</mat-label>
+                    <mat-select (change)="noPagination = false" formControlName="subCategoriaSku" multiple>
+                        <mat-option matTooltip="{{ subCategoria.descricao }}" *ngFor="let subCategoria of subCategorias"
+                            [value]="subCategoria" (click)="habilitarSegmento()">
+                            {{ subCategoria.descricao }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+            <div class="seguimento">
+                <mat-form-field class="padraoFiltros">
+                    <mat-label>Segmento</mat-label>
+                    <mat-select (change)="noPagination = false" formControlName="segmentoSku" multiple>
+                        <mat-option matTooltip="{{ segmento.descricao }}" class="selectOption"
+                            *ngFor="let segmento of segmentos" [value]="segmento" (click)="habilitarSubSegmento()">
+                            {{ segmento.descricao }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="seguimento">
+                <mat-form-field class="padraoFiltros">
+                    <mat-label>Sub-Segmento</mat-label>
+                    <mat-select (change)="noPagination = false" formControlName="subSegmentoSku" multiple>
+                        <mat-option matTooltip="{{ subSegmento.descricao }}" class="selectOption"
+                            *ngFor="let subSegmento of subSegmentos" [value]="subSegmento">
+                            {{ subSegmento.descricao }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <a mat-flat-button style="background: #123261; color: white; margin-right: 5px;"
+                (click)="searchSkus($event)">Buscar
+                <mat-icon>
+                    search</mat-icon></a>
+            <a mat-stroked-button (click)="limparFiltros()">Limpar
+                <mat-icon>
+                    backspace</mat-icon>
+            </a>
+        </form>
+        <div class="atributos" *ngIf="hasSkus">
+            <div class="titulo-atributos-respostas">
+                <mat-label>*Caso deseje, insira as respostas de cada atributo para os
+                    produtos selecionados</mat-label>
+            </div>
+            <ng-container *ngFor="let atributo of atributosRespostas">
+                <mat-form-field class="atributo-select">
+                    <mat-label>{{atributo.nome}}</mat-label>
+                    <mat-select>
+                        <mat-option matTooltip="{{ resposta.nome }}" *ngFor="let resposta of atributo.respostas"
+                            [value]="resposta" (click)="addRespostaAtributo(resposta)">
+                            {{ resposta.nome }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </ng-container>
+        </div>
+        <div class="loading" *ngIf="loading">
+            <mat-spinner></mat-spinner>
+        </div>
+        <div class="total-de-skus" *ngIf="hasSkus">
+            <span class="info">
+                Total de produtos filtrados:
+            </span>
+            <b style="margin-left: 10px;">{{totalProdutos}}</b>
+        </div>
+        <div class="tabelaSkus" *ngIf="hasSkus">
+            <div class="mat-elevation-z2">
+                <table mat-table [dataSource]="dataSourceSKU" class="table-sku">
+                    <!-- ST Column -->
+                    <ng-container matColumnDef="checkbox">
+                        <th style="width: 160px;" mat-header-cell *matHeaderCellDef scope="col">
+                            <mat-checkbox (click)="selecionarTodos()" [(ngModel)]="checked"></mat-checkbox>
+                        </th>
+                        <td mat-cell *matCellDef="let sku">
+                            <mat-checkbox [value]="sku" (change)="addSku(sku, $event)" [checked]="checked">
+                            </mat-checkbox>
+                        </td>
+                    </ng-container>
+                    <!-- Id Column -->
+                    <ng-container matColumnDef="id">
+                        <th style="width: 160px;" mat-header-cell *matHeaderCellDef scope="col">
+                            Código
+                        </th>
+                        <td mat-cell *matCellDef="let sku">
+                            <small>
+                                {{ sku.codigo }}
+                            </small>
+                        </td>
+                    </ng-container>
+                    <!-- Descrição Column -->
+                    <ng-container matColumnDef="name">
+                        <th style="width: 652px;" mat-header-cell *matHeaderCellDef scope="col">
+                            Descrição
+                        </th>
+                        <td mat-cell *matCellDef="let sku">
+                            <small>
+                                {{ sku.descricao }}
+                            </small>
+                        </td>
+                    </ng-container>
+
+                    <tr class="skus-table" mat-header-row *matHeaderRowDef="displayedSKUColumns"></tr>
+                    <tr class="skus-table" mat-row *matRowDef="let row; columns: displayedSKUColumns"></tr>
+                </table>
+                <div class="loading" *ngIf="loading">
+                    <mat-spinner></mat-spinner>
+                </div>
+                <div mat-dialog-actions class="m-0 p-16 buttons" fxLayout="row" fxLayoutAlign="end center">
+                    <button mat-button class="accent" (click)="matDialogRef.close()" aria-label="Fechar">
+                        Fechar
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="no-result text-deafult-color" *ngIf="!hasSkus && selectAllChecked">
+            <mat-label class="no-result">Nenhum Resultado Encontrado</mat-label>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,67 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <span class="title dialog-title" style="margin-right: 250px;">Editar respostas selecionadas do
+                atributo</span>
+            <button mat-icon-button (click)="matDialogRef.close()" aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+
+
+    </mat-toolbar>
+
+    <div mat-dialog-content class="p-24 pb-0 m-0" fusePerfectScrollbar *ngIf="!loading">
+        <div class="descricao">
+            <span><b>Descrição: </b> {{descricaoProduto}}</span>
+        </div>
+        <div class="descricao">
+            <span>*Insira as respostas de cada atributo para o produto</span>
+        </div>
+        <!-- <ng-container *ngFor="let atributo of atributosRespostas">
+            <mat-form-field class="atributo-select">
+                <mat-label>
+                    {{  atributo.nomeRespostaSelecionada ? atributo.nomeRespostaSelecionada : atributo.nome }}
+                </mat-label>
+                <mat-select>
+                    <mat-option matTooltip="{{ resposta.nome }}" *ngFor="let resposta of atributo.respostas"
+                        [value]="resposta" (click)="addRespostaAtributo(resposta); mudaLabel(atributo)">
+                        {{ resposta.nome }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </ng-container> -->
+
+        <ng-container *ngFor="let associacaoRespostaSelecionada of respostasSelecionadas">
+            <mat-form-field class="atributo-select">
+                <mat-label>
+                    {{ associacaoRespostaSelecionada.codigo !== null ?
+                    associacaoRespostaSelecionada.nomeRespostaSelecionada : associacaoRespostaSelecionada.nomeAtributo }}
+                </mat-label>
+                <mat-select>
+                    <mat-option matTooltip="{{ resposta.nome }}"
+                        *ngFor="let resposta of associacaoRespostaSelecionada.respostas" [value]="resposta"
+                        (click)="addRespostaAtributo(resposta)">
+                        {{ resposta.nome }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </ng-container>
+
+    </div>
+
+    <div mat-dialog-actions class="m-0 p-16" fxLayout="row" fxLayoutAlign="end center" *ngIf="!loading">
+
+        <a mat-button class="mr-8" (click)="matDialogRef.close()" aria-label="Cancelar" matTooltip="Cancelar">
+            Cancelar
+        </a>
+
+        <a mat-button class="accent" aria-label="Salvar" (click)="confirm()">
+            Salvar
+        </a>
+
+    </div>
+    <div class="loading" *ngIf="loading">
+        <mat-spinner></mat-spinner>
+    </div>
+</div>
