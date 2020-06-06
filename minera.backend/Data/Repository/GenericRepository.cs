@@ -61,7 +61,7 @@ namespace Minera.Data.Repository
             await _dbContext.Database.ExecuteSqlCommandAsync(query);
         }
 
-        public async Task Update(TEntity entity)
+        public async Task Update(int id, TEntity entity)
         {
             _dbContext.Set<TEntity>().Update(entity);
             await _dbContext.SaveChangesAsync();

@@ -62,15 +62,15 @@ namespace Minera.Controllers
         }
 
         [HttpPut]
-        [Route("api/ativos/insumo/")]
+        [Route("api/ativos/insumo/{id}")]
         [ProducesResponseType(200)]
-        [SwaggerOperation(Summary = "Atualiza os dados de um insumo")]
-        public async Task<IActionResult> Update([FromBody] InsumoDTO insumoDTO)
+        [SwaggerOperation(Summary = "Atualiza os dados de um insumo de acordo com o id")]
+        public async Task<IActionResult> Update(int id, [FromBody] InsumoDTO insumoDTO)
         {
-            // var oldInsumo = await _insumoRepository.GetById(id);
+            var oldInsumo = await _insumoRepository.GetById(id);
 
             var mapped = _mapper.Map<Insumo>(insumoDTO);
-            await _insumoRepository.Update(mapped);
+            await _insumoRepository.Update(id, mapped);
             return Ok();
         }
 

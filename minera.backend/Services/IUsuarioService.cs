@@ -95,7 +95,7 @@ namespace Minera.Services
                 user.password_salt = passwordSalt;
             }
 
-            await _usuarioRepository.Update(user);
+            await _usuarioRepository.Update(user.id,user);
         }
         public async Task Delete(int id)
         {

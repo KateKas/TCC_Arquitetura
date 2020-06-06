@@ -62,13 +62,15 @@ namespace Minera.Controllers
         }
 
         [HttpPut]
-        [Route("api/ativos/manutencao/")]
+        [Route("api/ativos/manutencao/{id}")]
         [ProducesResponseType(200)]
-        [SwaggerOperation(Summary = "Atualiza os dados de uma manutenção")]
-        public async Task<IActionResult> Update([FromBody] ManutencaoDTO manutencaoDTO)
+        [SwaggerOperation(Summary = "Atualiza os dados de uma manutenção de acordo com o id")]
+        public async Task<IActionResult> Update(int id, [FromBody] ManutencaoDTO manutencaoDTO)
         {
+            var oldManutencao = await _manutencaoRepository.GetById(id);
+
             var mapped = _mapper.Map<Manutencao>(manutencaoDTO);
-            await _manutencaoRepository.Update(mapped);
+            await _manutencaoRepository.Update(id, mapped);
             return Ok();
         }
 

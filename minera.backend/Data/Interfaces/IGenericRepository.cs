@@ -22,7 +22,7 @@ namespace Minera.Data.Interfaces
 
         Task Create(List<TEntity> entitys);
 
-        Task Update(TEntity entity);
+        Task Update(int id, TEntity entity);
 
         Task Delete(int id);
 
